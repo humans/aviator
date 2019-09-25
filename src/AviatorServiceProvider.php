@@ -1,6 +1,6 @@
 <?php
 
-namespace Aritsan\Aviator;
+namespace Artisan\Aviator;
 
 use Illuminate\Support\ServiceProvider;
 
