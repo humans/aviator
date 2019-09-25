@@ -10,15 +10,6 @@ class MetricController
 {
     public function index(Request $request)
     {
-        return Aviator::metric($request->route('metric'))
-            ->calculate($request)
-            ->pipe(function ($collection) {
-                return [
-                    'x' => $collection->pluck('month')->map(function ($month) {
-                        return DateTime::createFromFormat('m', $month)->format('F');
-                    }),
-                    'y' => $collection->pluck('commission'),
-                ];
-            });
+        return Aviator::metric($request->route('metric'))->calculate($request);
     }
 }

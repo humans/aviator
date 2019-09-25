@@ -14,10 +14,14 @@ class Value extends Metric
         }
 
         if (! $request->has('period')) {
-            return $query->count();
+            return new Result(
+                $query->count()
+            );
         }
 
-        return $query->whereBetween('created_at', $this->range($request->period))->count();
+        return new Result(
+            $query->whereBetween('created_at', $this->range($request->period))->count()
+        );
     }
 
     public function sum(Request $request, $query, $field)
@@ -27,9 +31,13 @@ class Value extends Metric
         }
 
         if (! $request->has('period')) {
-            return $query->get()->sum($field);
+            return new Result(
+                $query->get()->sum($field)
+            );
         }
 
-        return $query->whereBetween('created_at', $this->range($request->period))->get()->sum($field);
+        return new Result(
+            $query->whereBetween('created_at', $this->range($request->period))->get()->sum($field)
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Artisan\Aviator\Metric;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -18,17 +19,35 @@ class Trend extends Metric
             ->groupBy('month');
 
         if (! $request->has('period')) {
-            return $query->get()->map(function ($premium) {
+            return new Result(
+                $query->get()->map(function ($premium) {
+                    $premium->commission = $premium->commission / 100;
+
+                    return $premium;
+                })->pipe(function ($collection) {
+                    return [
+                        'x' => $collection->pluck('month')->map(function ($month) {
+                            return DateTime::createFromFormat('m', $month)->format('F');
+                        }),
+                        'y' => $collection->pluck('commission'),
+                    ];
+                })
+            );
+        }
+
+        return new Result(
+            $query->whereBetween('created_at', $this->range($request->period))->get()->map(function ($premium) {
                 $premium->commission = $premium->commission / 100;
 
                 return $premium;
-            });
-        }
-
-        return $query->whereBetween('created_at', $this->range($request->period))->get()->map(function ($premium) {
-            $premium->commission = $premium->commission / 100;
-
-            return $premium;
-        });
+            })->pipe(function ($collection) {
+                return [
+                    'x' => $collection->pluck('month')->map(function ($month) {
+                        return DateTime::createFromFormat('m', $month)->format('F');
+                    }),
+                    'y' => $collection->pluck('commission'),
+                ];
+            })
+        );
     }
 }
