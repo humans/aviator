@@ -8,6 +8,8 @@ class Aviator
 {
     protected $resources = [];
 
+    protected $metrics = [];
+
     public function resources($resources)
     {
         $this->resources = Collection::make($resources);
@@ -20,5 +22,19 @@ class Aviator
         });
 
         return new $resource;
+    }
+
+    public function metrics($metrics)
+    {
+        $this->metrics = Collection::make($metrics);
+    }
+
+    public function metric($route)
+    {
+        $metric = $this->metrics->first(function ($metric) use ($route) {
+            return $metric::$route === $route;
+        });
+
+        return new $metric;
     }
 }
