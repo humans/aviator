@@ -1,0 +1,12 @@
+{
+    "name": "artisan/aviator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jaggy Gauran",
+            "email": "jaggy@artisan.studio"
+        }
+    ],
+    "require": {}
+}
