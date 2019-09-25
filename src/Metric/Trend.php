@@ -5,26 +5,18 @@ namespace Artisan\Aviator\Metric;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class Value extends Metric
+class Trend extends Metric
 {
-    public function count(Request $request, $query)
+    public function sumByMonths(Request $request, $query, $field)
     {
         if (! $query instanceof Builder) {
             $query = (new $query)->query();
         }
 
-        if (! $request->has('period')) {
-            return $query->count();
-        }
+        $query
+            ->selectRaw("SUM(`{$field}`) as {$field}, MONTH(`created_at`) as `month`")
+            ->groupBy('month');
 
-        return $query->whereBetween('created_at', $this->range($request->period))->count();
-    }
-
-    public function sum(Request $request, $query, $field)
-    {
-        if (! $query instanceof Builder) {
-            $query = (new $query)->query();
-        }
 
         if (! $request->has('period')) {
             return $query->get()->sum($field);

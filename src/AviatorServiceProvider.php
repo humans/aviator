@@ -14,12 +14,22 @@ class AviatorServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerRoutes();
+    }
+
+    protected function registerRoutes()
+    {
         Route::group([
             'namespace' => 'Artisan\Aviator\Http\Controllers',
             'prefix' => 'aviator',
         ], function () {
-            require __DIR__ . '/Http/routes.php';
+            $this->loadViews();
         });
+    }
+
+    protected function loadViews()
+    {
+        require __DIR__ . '/Http/routes.php';
     }
 
     /**

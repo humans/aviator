@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 
 class MetricController
 {
-    public function index(Request $request, $metric)
+    public function index(Request $request)
     {
-        return ['result' => Aviator::metric($metric)->calculate($request)];
+        return [
+            'result' => Aviator::metric(
+                $request->route('metric')
+            )->calculate($request)
+        ];
     }
 }
