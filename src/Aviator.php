@@ -13,10 +13,10 @@ class Aviator
         $this->resources = Collection::make($resources);
     }
 
-    public function resource($slug)
+    public function resource($route)
     {
-        $resource = $this->resources->first(function ($resource) use ($slug) {
-            return $resource::$slug === $slug;
+        $resource = $this->resources->first(function ($resource) use ($route) {
+            return $resource::$resourceRoute === $route;
         });
 
         return new $resource;
