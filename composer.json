@@ -8,5 +8,19 @@
             "email": "jaggy@artisan.studio"
         }
     ],
-    "require": {}
+    "require": {
+        "illuminate/support": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Artisan\\Aviator\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Artisan\\Aviator\\AviatorServiceProvider"
+            ]
+        }
+    }
 }
