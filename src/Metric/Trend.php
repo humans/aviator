@@ -26,10 +26,10 @@ class Trend extends Metric
                     return $premium;
                 })->pipe(function ($collection) {
                     return [
-                        'x' => $collection->pluck('month')->map(function ($month) {
+                        'labels' => $collection->pluck('month')->map(function ($month) {
                             return DateTime::createFromFormat('m', $month)->format('F');
                         }),
-                        'y' => $collection->pluck('commission'),
+                        'series' => $collection->pluck('commission'),
                     ];
                 })
             );
@@ -42,10 +42,10 @@ class Trend extends Metric
                 return $premium;
             })->pipe(function ($collection) {
                 return [
-                    'x' => $collection->pluck('month')->map(function ($month) {
+                    'labels' => $collection->pluck('month')->map(function ($month) {
                         return DateTime::createFromFormat('m', $month)->format('F');
                     }),
-                    'y' => $collection->pluck('commission'),
+                    'series' => $collection->pluck('commission'),
                 ];
             })
         );
