@@ -15,12 +15,5 @@
         "psr-4": {
             "Artisan\\Aviator\\": "src"
         }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Artisan\\Aviator\\AviatorServiceProvider"
-            ]
-        }
     }
 }

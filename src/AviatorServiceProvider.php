@@ -2,6 +2,7 @@
 
 namespace Artisan\Aviator;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class AviatorServiceProvider extends ServiceProvider
@@ -13,7 +14,6 @@ class AviatorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
